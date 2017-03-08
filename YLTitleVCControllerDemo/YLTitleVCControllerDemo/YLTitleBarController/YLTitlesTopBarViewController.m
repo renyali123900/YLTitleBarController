@@ -295,7 +295,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if (scrollView == self.vcView && self.sliderShake) {
-        CGFloat index = scrollView.contentOffset.x / scrollView.bounds.size.width;
+        NSUInteger index = scrollView.contentOffset.x / scrollView.bounds.size.width;
         if (self.selectIndex != index) {
             self.selectIndex = index;
             [self.vcView selectedCellForIndex:self.selectIndex];

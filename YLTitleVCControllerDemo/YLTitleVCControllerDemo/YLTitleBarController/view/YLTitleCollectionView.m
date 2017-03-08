@@ -93,7 +93,8 @@
             target = self.selectedCell.index + 1;
         }
         target = MAX(0, target);
-        target = MIN(target, [self.dataSource numberOfItemsIncollectionView:self]);
+        //忽略了相同的情况
+        target = MIN(target, [self.dataSource numberOfItemsIncollectionView:self] - 1);
         YLCollectionViewCell *targetcell = [self cellForCollectionViewAtIndex:target];
         YLCollectionViewCell *cell = [self cellForCollectionViewAtIndex:self.selectedCell.index];
         
