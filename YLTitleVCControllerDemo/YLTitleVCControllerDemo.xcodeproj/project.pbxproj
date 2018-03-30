@@ -16,15 +16,15 @@
 		797AFEB21E642A5F00FC9E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 797AFEB01E642A5F00FC9E9B /* LaunchScreen.storyboard */; };
 		797AFEBD1E642A5F00FC9E9B /* YLTitleVCControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEBC1E642A5F00FC9E9B /* YLTitleVCControllerDemoTests.m */; };
 		797AFEC81E642A5F00FC9E9B /* YLTitleVCControllerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEC71E642A5F00FC9E9B /* YLTitleVCControllerDemoUITests.m */; };
-		797AFEE71E642AF600FC9E9B /* YLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEE41E642AF600FC9E9B /* YLCollectionViewCell.m */; };
-		797AFEE81E642AF600FC9E9B /* YLTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEE61E642AF600FC9E9B /* YLTitleCollectionViewCell.m */; };
 		797AFEFA1E64301C00FC9E9B /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEF91E64301C00FC9E9B /* TestViewController.m */; };
-		797AFF021E64330B00FC9E9B /* YLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEFD1E64330B00FC9E9B /* YLCollectionView.m */; };
-		797AFF031E64330B00FC9E9B /* YLTitleCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFEFF1E64330B00FC9E9B /* YLTitleCollectionView.m */; };
-		797AFF0A1E64361900FC9E9B /* YLTitlesTopBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797AFF091E64361900FC9E9B /* YLTitlesTopBarViewController.m */; };
-		797FB5E21E6F93F5000F2080 /* TitleItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 797FB5E11E6F93F5000F2080 /* TitleItemData.m */; };
-		79BB1374206DDB7D0060A318 /* YLVCUICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB1373206DDB7C0060A318 /* YLVCUICollectionView.m */; };
-		79BB1377206DDBC50060A318 /* YLVCUICollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB1376206DDBC50060A318 /* YLVCUICollectionViewCell.m */; };
+		79BB138B206E1A6F0060A318 /* YLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB137B206E1A6E0060A318 /* YLCollectionViewCell.m */; };
+		79BB138C206E1A6F0060A318 /* YLTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB137D206E1A6E0060A318 /* YLTitleCollectionViewCell.m */; };
+		79BB138D206E1A6F0060A318 /* YLVCUICollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB137F206E1A6E0060A318 /* YLVCUICollectionViewCell.m */; };
+		79BB138E206E1A6F0060A318 /* TitleItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB1381206E1A6E0060A318 /* TitleItemData.m */; };
+		79BB138F206E1A6F0060A318 /* YLCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB1384206E1A6E0060A318 /* YLCollectionView.m */; };
+		79BB1390206E1A6F0060A318 /* YLTitleCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB1386206E1A6E0060A318 /* YLTitleCollectionView.m */; };
+		79BB1391206E1A6F0060A318 /* YLVCUICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB1388206E1A6E0060A318 /* YLVCUICollectionView.m */; };
+		79BB1392206E1A6F0060A318 /* YLTitlesTopBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BB138A206E1A6E0060A318 /* YLTitlesTopBarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,24 +62,24 @@
 		797AFEC31E642A5F00FC9E9B /* YLTitleVCControllerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YLTitleVCControllerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		797AFEC71E642A5F00FC9E9B /* YLTitleVCControllerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLTitleVCControllerDemoUITests.m; sourceTree = "<group>"; };
 		797AFEC91E642A5F00FC9E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		797AFEE31E642AF600FC9E9B /* YLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionViewCell.h; sourceTree = "<group>"; };
-		797AFEE41E642AF600FC9E9B /* YLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionViewCell.m; sourceTree = "<group>"; };
-		797AFEE51E642AF600FC9E9B /* YLTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLTitleCollectionViewCell.h; sourceTree = "<group>"; };
-		797AFEE61E642AF600FC9E9B /* YLTitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLTitleCollectionViewCell.m; sourceTree = "<group>"; };
 		797AFEF81E64301C00FC9E9B /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		797AFEF91E64301C00FC9E9B /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		797AFEFC1E64330B00FC9E9B /* YLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionView.h; sourceTree = "<group>"; };
-		797AFEFD1E64330B00FC9E9B /* YLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionView.m; sourceTree = "<group>"; };
-		797AFEFE1E64330B00FC9E9B /* YLTitleCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLTitleCollectionView.h; sourceTree = "<group>"; };
-		797AFEFF1E64330B00FC9E9B /* YLTitleCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLTitleCollectionView.m; sourceTree = "<group>"; };
-		797AFF081E64361900FC9E9B /* YLTitlesTopBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLTitlesTopBarViewController.h; sourceTree = "<group>"; };
-		797AFF091E64361900FC9E9B /* YLTitlesTopBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLTitlesTopBarViewController.m; sourceTree = "<group>"; };
-		797FB5E01E6F93F5000F2080 /* TitleItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleItemData.h; sourceTree = "<group>"; };
-		797FB5E11E6F93F5000F2080 /* TitleItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleItemData.m; sourceTree = "<group>"; };
-		79BB1372206DDB7C0060A318 /* YLVCUICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLVCUICollectionView.h; sourceTree = "<group>"; };
-		79BB1373206DDB7C0060A318 /* YLVCUICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLVCUICollectionView.m; sourceTree = "<group>"; };
-		79BB1375206DDBC40060A318 /* YLVCUICollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLVCUICollectionViewCell.h; sourceTree = "<group>"; };
-		79BB1376206DDBC50060A318 /* YLVCUICollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLVCUICollectionViewCell.m; sourceTree = "<group>"; };
+		79BB137A206E1A6E0060A318 /* YLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionViewCell.h; sourceTree = "<group>"; };
+		79BB137B206E1A6E0060A318 /* YLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionViewCell.m; sourceTree = "<group>"; };
+		79BB137C206E1A6E0060A318 /* YLTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLTitleCollectionViewCell.h; sourceTree = "<group>"; };
+		79BB137D206E1A6E0060A318 /* YLTitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLTitleCollectionViewCell.m; sourceTree = "<group>"; };
+		79BB137E206E1A6E0060A318 /* YLVCUICollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLVCUICollectionViewCell.h; sourceTree = "<group>"; };
+		79BB137F206E1A6E0060A318 /* YLVCUICollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLVCUICollectionViewCell.m; sourceTree = "<group>"; };
+		79BB1380206E1A6E0060A318 /* TitleItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleItemData.h; sourceTree = "<group>"; };
+		79BB1381206E1A6E0060A318 /* TitleItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleItemData.m; sourceTree = "<group>"; };
+		79BB1383206E1A6E0060A318 /* YLCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLCollectionView.h; sourceTree = "<group>"; };
+		79BB1384206E1A6E0060A318 /* YLCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLCollectionView.m; sourceTree = "<group>"; };
+		79BB1385206E1A6E0060A318 /* YLTitleCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLTitleCollectionView.h; sourceTree = "<group>"; };
+		79BB1386206E1A6E0060A318 /* YLTitleCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLTitleCollectionView.m; sourceTree = "<group>"; };
+		79BB1387206E1A6E0060A318 /* YLVCUICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLVCUICollectionView.h; sourceTree = "<group>"; };
+		79BB1388206E1A6E0060A318 /* YLVCUICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLVCUICollectionView.m; sourceTree = "<group>"; };
+		79BB1389206E1A6E0060A318 /* YLTitlesTopBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLTitlesTopBarViewController.h; sourceTree = "<group>"; };
+		79BB138A206E1A6E0060A318 /* YLTitlesTopBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLTitlesTopBarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +130,7 @@
 		797AFE9E1E642A5F00FC9E9B /* YLTitleVCControllerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				797AFED51E642AAD00FC9E9B /* YLTitleBarController */,
+				79BB1378206E1A6E0060A318 /* YLTitleBarController */,
 				797AFEA21E642A5F00FC9E9B /* AppDelegate.h */,
 				797AFEA31E642A5F00FC9E9B /* AppDelegate.m */,
 				797AFEA51E642A5F00FC9E9B /* ViewController.h */,
@@ -173,41 +173,41 @@
 			path = YLTitleVCControllerDemoUITests;
 			sourceTree = "<group>";
 		};
-		797AFED51E642AAD00FC9E9B /* YLTitleBarController */ = {
+		79BB1378206E1A6E0060A318 /* YLTitleBarController */ = {
 			isa = PBXGroup;
 			children = (
-				797AFEFB1E64330B00FC9E9B /* view */,
-				797AFEE21E642AF600FC9E9B /* cell */,
-				797AFF081E64361900FC9E9B /* YLTitlesTopBarViewController.h */,
-				797AFF091E64361900FC9E9B /* YLTitlesTopBarViewController.m */,
-				797FB5E01E6F93F5000F2080 /* TitleItemData.h */,
-				797FB5E11E6F93F5000F2080 /* TitleItemData.m */,
+				79BB1379206E1A6E0060A318 /* cell */,
+				79BB1380206E1A6E0060A318 /* TitleItemData.h */,
+				79BB1381206E1A6E0060A318 /* TitleItemData.m */,
+				79BB1382206E1A6E0060A318 /* view */,
+				79BB1389206E1A6E0060A318 /* YLTitlesTopBarViewController.h */,
+				79BB138A206E1A6E0060A318 /* YLTitlesTopBarViewController.m */,
 			);
 			path = YLTitleBarController;
 			sourceTree = "<group>";
 		};
-		797AFEE21E642AF600FC9E9B /* cell */ = {
+		79BB1379206E1A6E0060A318 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				797AFEE31E642AF600FC9E9B /* YLCollectionViewCell.h */,
-				797AFEE41E642AF600FC9E9B /* YLCollectionViewCell.m */,
-				797AFEE51E642AF600FC9E9B /* YLTitleCollectionViewCell.h */,
-				797AFEE61E642AF600FC9E9B /* YLTitleCollectionViewCell.m */,
-				79BB1375206DDBC40060A318 /* YLVCUICollectionViewCell.h */,
-				79BB1376206DDBC50060A318 /* YLVCUICollectionViewCell.m */,
+				79BB137A206E1A6E0060A318 /* YLCollectionViewCell.h */,
+				79BB137B206E1A6E0060A318 /* YLCollectionViewCell.m */,
+				79BB137C206E1A6E0060A318 /* YLTitleCollectionViewCell.h */,
+				79BB137D206E1A6E0060A318 /* YLTitleCollectionViewCell.m */,
+				79BB137E206E1A6E0060A318 /* YLVCUICollectionViewCell.h */,
+				79BB137F206E1A6E0060A318 /* YLVCUICollectionViewCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
 		};
-		797AFEFB1E64330B00FC9E9B /* view */ = {
+		79BB1382206E1A6E0060A318 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				797AFEFC1E64330B00FC9E9B /* YLCollectionView.h */,
-				797AFEFD1E64330B00FC9E9B /* YLCollectionView.m */,
-				797AFEFE1E64330B00FC9E9B /* YLTitleCollectionView.h */,
-				797AFEFF1E64330B00FC9E9B /* YLTitleCollectionView.m */,
-				79BB1372206DDB7C0060A318 /* YLVCUICollectionView.h */,
-				79BB1373206DDB7C0060A318 /* YLVCUICollectionView.m */,
+				79BB1383206E1A6E0060A318 /* YLCollectionView.h */,
+				79BB1384206E1A6E0060A318 /* YLCollectionView.m */,
+				79BB1385206E1A6E0060A318 /* YLTitleCollectionView.h */,
+				79BB1386206E1A6E0060A318 /* YLTitleCollectionView.m */,
+				79BB1387206E1A6E0060A318 /* YLVCUICollectionView.h */,
+				79BB1388206E1A6E0060A318 /* YLVCUICollectionView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -346,19 +346,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79BB1377206DDBC50060A318 /* YLVCUICollectionViewCell.m in Sources */,
+				79BB1391206E1A6F0060A318 /* YLVCUICollectionView.m in Sources */,
+				79BB138D206E1A6F0060A318 /* YLVCUICollectionViewCell.m in Sources */,
+				79BB138E206E1A6F0060A318 /* TitleItemData.m in Sources */,
+				79BB138C206E1A6F0060A318 /* YLTitleCollectionViewCell.m in Sources */,
 				797AFEA71E642A5F00FC9E9B /* ViewController.m in Sources */,
+				79BB1390206E1A6F0060A318 /* YLTitleCollectionView.m in Sources */,
+				79BB138B206E1A6F0060A318 /* YLCollectionViewCell.m in Sources */,
+				79BB1392206E1A6F0060A318 /* YLTitlesTopBarViewController.m in Sources */,
 				797AFEAD1E642A5F00FC9E9B /* YLTitleVCControllerDemo.xcdatamodeld in Sources */,
-				797AFEE71E642AF600FC9E9B /* YLCollectionViewCell.m in Sources */,
-				797AFEE81E642AF600FC9E9B /* YLTitleCollectionViewCell.m in Sources */,
-				797FB5E21E6F93F5000F2080 /* TitleItemData.m in Sources */,
-				797AFF031E64330B00FC9E9B /* YLTitleCollectionView.m in Sources */,
 				797AFEFA1E64301C00FC9E9B /* TestViewController.m in Sources */,
+				79BB138F206E1A6F0060A318 /* YLCollectionView.m in Sources */,
 				797AFEA41E642A5F00FC9E9B /* AppDelegate.m in Sources */,
-				79BB1374206DDB7D0060A318 /* YLVCUICollectionView.m in Sources */,
-				797AFF021E64330B00FC9E9B /* YLCollectionView.m in Sources */,
 				797AFEA11E642A5F00FC9E9B /* main.m in Sources */,
-				797AFF0A1E64361900FC9E9B /* YLTitlesTopBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
