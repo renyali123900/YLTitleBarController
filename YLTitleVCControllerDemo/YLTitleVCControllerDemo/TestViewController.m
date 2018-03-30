@@ -18,22 +18,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:label];
-    self.label = label;
-    self.label.textColor = [UIColor whiteColor];
-    self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.label.text = @"title";
-    self.label.textAlignment = NSTextAlignmentCenter;
+    
     
 }
+
 
 - (void)setTitle:(NSString *)title
 {
     [super setTitle:title];
-    self.label.text = title;
+     self.label.text = title;
 }
 
+- (UILabel *)label
+{
+    if (!_label) {
+        UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
+        [self.view addSubview:label];
+        _label = label;
+        _label.textColor = [UIColor whiteColor];
+        _label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _label.text = @"title";
+        _label.textAlignment = NSTextAlignmentCenter;
+    }
+    return _label;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

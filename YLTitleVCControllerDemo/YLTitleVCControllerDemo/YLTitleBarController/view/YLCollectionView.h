@@ -30,17 +30,24 @@ typedef NS_ENUM(NSUInteger, YLCollectionViewScrollPosition) {
 @property (nonatomic, weak) id<YLCollectionViewDelegate> dataDelegate;
 @property (nonatomic, weak) YLCollectionViewCell *selectedCell;//标记当前选中的cell
 
+@property (nonatomic, assign) BOOL isLazyLoadCell; //标记是否懒加载cell
+@property (nonatomic, assign) NSInteger currentIndex; //标记当前展示界面的index 目前只用于VCCollection
+
 //更新数据
+- (void)removeCell;
 - (void)reloadData;
 - (void)reloadDataAndSelecteIndex:(NSInteger)index;
 - (void)reloadDataAndscrollsToIndex:(NSInteger)index;
 
 //选中cell
-- (void)selectedCellForIndex:(NSInteger)index;
+- (void)selectedCellForIndex:(NSInteger)index IsReloadVC:(BOOL)reloadvc;
 //滚动到相应cell
 - (void)scrollsToIndex:(NSInteger)index atScrollPosition:(YLCollectionViewScrollPosition)position animated:(BOOL)animated;
 //获取指定cell
 - (YLCollectionViewCell *)cellForCollectionViewAtIndex:(NSInteger)index;
+
+//更新部分数据 懒加载模式下用到
+- (void)reloadDataWithCurrentIndex:(NSInteger)index;
 
 @end
 
@@ -60,7 +67,7 @@ typedef NS_ENUM(NSUInteger, YLCollectionViewScrollPosition) {
 //设置cell的大小
 - (CGSize)collectionView:(YLCollectionView *)collectionView sizeForCellAtIndex:(NSInteger)index;
 //将选中或取消cell 在动画前调用
-- (void)collectionView:(YLCollectionView *)collectionView willSelectItemAtIndex:(NSInteger)index;
+- (void)collectionView:(YLCollectionView *)collectionView willSelectItemAtIndex:(NSInteger)index IsReloadVC:(BOOL)reloadvc;
 - (void)collectionView:(YLCollectionView *)collectionView willDeselectItemAtIndex:(NSInteger)index;
 //已选中或取消cell 在动画后调用
 - (void)collectionView:(YLCollectionView *)collectionView didSelectItemAtIndex:(NSInteger)index;

@@ -29,50 +29,146 @@
         self.showsHorizontalScrollIndicator = NO;
         self.bounces = NO;
         self.isCellCanTouch = YES;
+        self.isLazyLoadCell = NO;
+        self.currentIndex = -1;
 
     }
     return self;
 }
 #pragma mark 外部方法
+- (void)removeCell
+{
+    for (UIView *v in [self.cellDictionary allValues]) {
+        if (v.superview) {
+            [v removeFromSuperview];
+
+        }
+    }
+    [self.cellDictionary removeAllObjects];
+}
 //更新数据
 - (void)reloadData
 {
+    if (!self.numberOfitems) {
+        return;
+    }
+    self.currentIndex = MIN(self.numberOfitems - 1, self.currentIndex);
+    self.currentIndex = MAX(self.currentIndex, 0);
+    if (self.isLazyLoadCell) {
+        [self reloadDataWithCurrentIndex:self.currentIndex];
+    } else {
+        CGFloat originx = 0;
+        for (int i = 0; i < self.numberOfitems; i ++ ) {
+            YLCollectionViewCell *cell = [self cellOfIndex:i];
+            CGSize size = [self cellSizeOfIndex:i];
+            cell.frame = CGRectMake(originx, self.cellOriginY, size.width, size.height);
+            if (!cell.superview) {
+                [self addSubview:cell];
+                if (self.isCellCanTouch) {
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellClick:)];
+                    [cell addGestureRecognizer:tap];
+                }
+                
+            }
+            originx += size.width + [self cellSpaceRightOfIndex:i];
+        }
+        
+        self.contentSize = CGSizeMake(originx, self.bounds.size.height);
+    }
+    
+
+}
+
+- (void)reloadDataWithCurrentIndex:(NSInteger)index
+{
+
+    if (!self.numberOfitems) {
+        return;
+    }
+    index = MIN(self.numberOfitems - 1, index);
+    index = MAX(index, 0);
+    
+    self.currentIndex = index;
     CGFloat originx = 0;
     for (int i = 0; i < self.numberOfitems; i ++ ) {
-        YLCollectionViewCell *cell = [self cellOfIndex:i];
+        
         CGSize size = [self cellSizeOfIndex:i];
-        cell.frame = CGRectMake(originx, self.cellOriginY, size.width, size.height);
-        if (!cell.superview) {
-            [self addSubview:cell];
-            if (self.isCellCanTouch) {
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellClick:)];
-                [cell addGestureRecognizer:tap];
+
+        if (i == self.currentIndex || i == self.currentIndex - 1 || i == self.currentIndex + 1) {
+            YLCollectionViewCell *cell = [self cellOfIndex:i];
+            cell.frame = CGRectMake(originx, self.cellOriginY, size.width, size.height);
+            if (!cell.superview) {
+                [self addSubview:cell];
+                if (self.isCellCanTouch) {
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellClick:)];
+                    [cell addGestureRecognizer:tap];
+                }
+                
             }
 
         }
+        
         originx += size.width + [self cellSpaceRightOfIndex:i];
     }
     
     self.contentSize = CGSizeMake(originx, self.bounds.size.height);
-}
 
+}
 - (void)reloadDataAndSelecteIndex:(NSInteger)index
 {
-    [self reloadData];
-    if (index >= self.numberOfitems || index < 0) {
+    if (!self.numberOfitems) {
         return;
     }
+    index = MIN(self.numberOfitems - 1, index);
+    index = MAX(index, 0);
+    self.currentIndex = index;
+//    NSLog(@"count==%d seledt=%d",self.numberOfitems,self.currentIndex);
+//
+//
+//    if (self.isLazyLoadCell) {
+//        [self reloadDataWithCurrentIndex:index];
+//    } else {
+//    
+//        [self reloadData];
+//    }
+    [self scrollsToIndex:index atScrollPosition:YLCollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
     YLCollectionViewCell *cell = [self cellOfIndex:index];
     [self cellClick:[cell.gestureRecognizers lastObject]];
 }
 
 - (void)reloadDataAndscrollsToIndex:(NSInteger)index
 {
-    [self reloadData];
-    [self scrollsToIndex:index atScrollPosition:YLCollectionViewScrollPositionCenteredHorizontally animated:YES];
+    if (!self.numberOfitems) {
+        return;
+    }
+    index = MIN(self.numberOfitems - 1, index);
+    index = MAX(index, 0);
+
+    if (self.isLazyLoadCell) {
+        [self scrollsToIndex:index atScrollPosition:YLCollectionViewScrollPositionCenteredHorizontally animated:YES];
+    } else {
+        
+        [self reloadData];
+        [self scrollsToIndex:index atScrollPosition:YLCollectionViewScrollPositionCenteredHorizontally animated:YES];
+        self.currentIndex = index;
+
+    }
 }
 - (void)scrollsToIndex:(NSInteger)index atScrollPosition:(YLCollectionViewScrollPosition)position animated:(BOOL)animated
 {
+    if (!self.numberOfitems) {
+        return;
+    }
+    index = MIN(self.numberOfitems - 1, index);
+    index = MAX(index, 0);
+    
+    if (self.isLazyLoadCell) {
+        [self reloadDataWithCurrentIndex:index];
+    } else {
+        
+        [self reloadData];
+    }
     YLCollectionViewCell *cell = [self cellForCollectionViewAtIndex:index];
     
     CGFloat offset;
@@ -99,7 +195,7 @@
 
 }
 
-- (void)selectedCellForIndex:(NSInteger)index
+- (void)selectedCellForIndex:(NSInteger)index IsReloadVC:(BOOL)reloadvc
 {
     if (self.selectedCell && self.selectedCell.index == index) {
         return;
@@ -111,15 +207,19 @@
     
     self.selectedCell = [self cellForCollectionViewAtIndex:index];
     
-    if (self.dataDelegate && [self.dataDelegate respondsToSelector:@selector(collectionView:willSelectItemAtIndex:)]) {
-        [self.dataDelegate collectionView:self willSelectItemAtIndex:index];
+    if (self.dataDelegate && [self.dataDelegate respondsToSelector:@selector(collectionView:willSelectItemAtIndex:IsReloadVC:)]) {
+        [self.dataDelegate collectionView:self willSelectItemAtIndex:index IsReloadVC:reloadvc];
+    }
+    
+    if (self.dataDelegate && [self.dataDelegate respondsToSelector:@selector(collectionView:didSelectItemAtIndex:)]) {
+        [self.dataDelegate collectionView:self didSelectItemAtIndex:index];
     }
     
 }
 
 - (YLCollectionViewCell *)cellForCollectionViewAtIndex:(NSInteger)index
 {
-    NSAssert(index < self.numberOfitems, @"index 越界了");
+//    NSAssert(index < self.numberOfitems, @"index 越界了");
     return [self.cellDictionary objectForKey:@(index)];
 }
 
@@ -188,7 +288,7 @@
 - (void)cellClick:(UITapGestureRecognizer *)tap
 {
     YLCollectionViewCell *cell = (YLCollectionViewCell *)tap.view;
-    [self selectedCellForIndex:cell.index];
+    [self selectedCellForIndex:cell.index IsReloadVC:YES];
     
 }
 

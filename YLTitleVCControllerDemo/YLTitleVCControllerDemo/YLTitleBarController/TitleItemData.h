@@ -10,4 +10,6 @@
 
 @interface TitleItemData : NSObject
 @property (nonatomic, copy) NSString *title; //item name
+
+- (instancetype)initWithTitle:(NSString *)title;
 @end

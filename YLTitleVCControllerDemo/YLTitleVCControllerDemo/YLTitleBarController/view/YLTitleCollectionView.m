@@ -56,16 +56,24 @@
         }
         
         YLCollectionViewCell *cell = [self cellForCollectionViewAtIndex:index];
+        CGFloat sliderivx = cell.frame.origin.x;
+        CGFloat sliderivw = cell.frame.size.width;
+        if (self.sliderWidth) {
+            sliderivw = self.sliderWidth;
+            sliderivx = sliderivx + (cell.frame.size.width - self.sliderWidth) / 2;
+        }
+
+        
         if (CGRectEqualToRect(self.slideriv.frame, CGRectZero)){
-            self.slideriv.frame = CGRectMake(cell.frame.origin.x, self.sliderOriginY, 0, self.sliderHeight);
+            self.slideriv.frame = CGRectMake(sliderivx, self.sliderOriginY, 0, self.sliderHeight);
         }
         if (animated) {
             [UIView animateWithDuration:0.15 animations:^{
-                self.slideriv.frame = CGRectMake(cell.frame.origin.x, self.sliderOriginY, cell.frame.size.width, self.sliderHeight);
+                self.slideriv.frame = CGRectMake(sliderivx, self.sliderOriginY, sliderivw, self.sliderHeight);
                 
             }];
         } else {
-            self.slideriv.frame = CGRectMake(cell.frame.origin.x, self.sliderOriginY, cell.frame.size.width, self.sliderHeight);
+            self.slideriv.frame = CGRectMake(sliderivx, self.sliderOriginY, sliderivw, self.sliderHeight);
 
         }
 
@@ -103,7 +111,12 @@
         rect.origin.x += dexx;
 
         CGFloat dexw = fabs(rect.origin.x - cell.frame.origin.x);
+        
         rect.size.width = dexw / cell.frame.size.width * targetcell.frame.size.width + (cell.frame.size.width - dexw);
+
+        if (self.sliderWidth) {
+            rect.size.width = self.sliderWidth;
+        }
         
         self.slideriv.frame = rect;
     }
@@ -117,9 +130,9 @@
     [self reloadSliderFrameWith:self.selectedCell.index animated:NO];
 }
 
-- (void)selectedCellForIndex:(NSInteger)index
+- (void)selectedCellForIndex:(NSInteger)index IsReloadVC:(BOOL)reloadvc
 {
-    [super selectedCellForIndex:index];
+    [super selectedCellForIndex:index IsReloadVC:reloadvc];
     if ([self respondsToSelector:@selector(reloadSliderFrameWith:animated:)]) {
         [self reloadSliderFrameWith:index animated:YES];
     }

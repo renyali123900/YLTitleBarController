@@ -55,6 +55,7 @@
     topBarvc.sliderHeight = 5;
     topBarvc.delegate = self;
     topBarvc.itemArray = self.titleArray;
+    topBarvc.isLazyLoadVC = YES;
 
     topBarvc.view.frame = CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height - 100);
     topBarvc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -68,10 +69,18 @@
 #pragma mark YLTitlesTopBarViewControllerDelegate
 - (UIViewController *)titlesTopBarViewController:(YLTitlesTopBarViewController *)topBarvc ViewController:(UIViewController *)cellvc vcForItemAtIndex:(NSInteger)index
 {
-    TestViewController *vc = (TestViewController *)cellvc;
-    if (!vc) {
+    
+    TestViewController *vc;
+    if (!cellvc) {
         vc = [[TestViewController alloc] init];
+        //为了复用vc
+        [topBarvc addChildViewController:vc];
+
+    } else {
+        vc = (TestViewController *)cellvc;
+        
     }
+    
     vc.title = [self.titleArray[index] title];
     
     return vc;

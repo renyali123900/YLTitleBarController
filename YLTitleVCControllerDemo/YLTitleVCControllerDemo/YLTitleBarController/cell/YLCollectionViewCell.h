@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TitleItemData.h"
+/*
+ 顶部title 和 展示view 的cell基类
+ */
 @interface YLCollectionViewCell : UIView
 
 @property (nonatomic, assign) NSInteger index;

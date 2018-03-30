@@ -7,12 +7,13 @@
 //
 
 #import "YLTitlesTopBarViewController.h"
-#import "YLVCCollectionView.h"
+#import "YLTitleCollectionView.h"
+#import "YLVCUICollectionView.h"
 
-@interface YLTitlesTopBarViewController ()<YLCollectionViewDelegate, YLCollectionViewDataSource,UIScrollViewDelegate>
+@interface YLTitlesTopBarViewController ()<YLCollectionViewDelegate, YLCollectionViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (nonatomic, strong) UIImageView *titleBar;
 @property (nonatomic, strong) YLTitleCollectionView *titleview;
-@property (nonatomic, strong) YLVCCollectionView *vcView;
+@property (nonatomic, strong) YLVCUICollectionView *vcView;
 
 @property (nonatomic, assign) CGFloat lastOffect; //更新滑块位置用到
 @property (nonatomic, assign) BOOL sliderShake; //用来标记是vcView主动引起的滑动 区分于点击title引起的vcView滑动
@@ -29,7 +30,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.titleBar];
     [self.view addSubview:self.vcView];
@@ -37,6 +37,10 @@
     self.titleBar.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.topBarHeight);
     self.vcView.frame = CGRectMake(0, self.topBarHeight, self.view.bounds.size.width, self.view.bounds.size.height - self.topBarHeight);
     self.titleview.frame = UIEdgeInsetsInsetRect(self.titleBar.bounds, UIEdgeInsetsMake(self.topBarItemTop, self.titleViewLeft, self.topBarItemBottm, self.titleViewRight));
+    self.titleview.backgroundColor = self.titleBarBgColor;
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, self.view.bounds.size.height)];
+    v.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:v];
 
     self.lastOffect = -1;
     self.sliderShake = NO;
@@ -71,16 +75,23 @@
     return _titleview;
 }
 
-- (YLVCCollectionView *)vcView
+- (YLVCUICollectionView *)vcView
 {
     if (!_vcView) {
-        YLVCCollectionView *vcView = [[YLVCCollectionView alloc] init];
-        vcView.dataDelegate = self;
-        vcView.dataSource = self;
-        vcView.delegate = self;
-
-        _vcView = vcView;
-        _vcView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        UICollectionViewFlowLayout *layot = [[UICollectionViewFlowLayout alloc] init];
+        layot.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layot.minimumInteritemSpacing = 0;
+        layot.minimumLineSpacing = 0;
+        YLVCUICollectionView *collectionView = [[YLVCUICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layot];
+        collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        collectionView.showsHorizontalScrollIndicator = NO;
+        collectionView.backgroundColor = [UIColor whiteColor];
+        [collectionView registerClass:[YLVCUICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([YLVCUICollectionViewCell class])];
+        collectionView.dataSource = self;
+        collectionView.delegate = self;
+        collectionView.pagingEnabled = YES;
+        collectionView.allowsSelection = NO;
+        _vcView = collectionView;
 
     }
     
@@ -116,11 +127,25 @@
 {
     self.titleview.sliderOriginY = sliderOriginY;
 }
+
+- (void)setSliderWidth:(CGFloat)sliderWidth
+{
+    self.titleview.sliderWidth = sliderWidth;
+
+}
 #pragma mark end
 
 #pragma mark 更新数据
+- (void)setItemArray:(NSArray *)itemArray
+{
+    _itemArray = itemArray;
+    [self.titleview removeCell];
+}
 - (void)reloadData
 {
+    if (!self.itemArray.count) {
+        return;
+    }
     if (self.selectIndex == -1) {
         self.selectIndex = 0;
     }
@@ -133,30 +158,54 @@
 }
 - (void)reloadDataAndSelecteIndex:(NSInteger)index
 {
-    [self.titleview reloadDataAndSelecteIndex:index];
+    if (!self.itemArray.count) {
+        [self.vcView reloadData];
+        return;
+    }
+    if (self.selectIndex == -1) {
+        self.selectIndex = 0;
+    }
+    
+    if (self.selectIndex >= self.itemArray.count) {
+        self.selectIndex = 0;
+    }
     [self.vcView reloadDataAndSelecteIndex:index];
+    [self.titleview reloadDataAndSelecteIndex:index];
+
+
 }
-- (void)reloadDataAndscrollsToIndex:(NSInteger)index
+//- (void)reloadDataAndscrollsToIndex:(NSInteger)index
+//{
+//    if (!self.itemArray.count) {
+//        return;
+//    }
+//    [self.vcView reloadDataAndSelecteIndex:index];
+//    [self.titleview reloadDataAndscrollsToIndex:index];
+//
+//}
+
+//- (void)scrollsToIndex:(NSInteger)index atScrollPosition:(YLCollectionViewScrollPosition)position animated:(BOOL)animated
+//{
+//    if (!self.itemArray.count) {
+//        return;
+//    }
+//    [self.titleview scrollsToIndex:index atScrollPosition:position animated:animated];
+//    [self.vcView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
+//
+//}
+
+- (void)reloadCurrentVC
 {
-    [self.titleview reloadDataAndscrollsToIndex:index];
-    [self.vcView reloadDataAndscrollsToIndex:index];
+   [self.vcView reloadCurrentVC];
 }
-- (void)scrollsToIndex:(NSInteger)index atScrollPosition:(YLCollectionViewScrollPosition)position animated:(BOOL)animated
-{
-    [self.titleview scrollsToIndex:index atScrollPosition:position animated:animated];
-    [self.vcView scrollsToIndex:index atScrollPosition:position animated:YES];
-
-}
-
-
 #pragma mark ===YLCollectionViewDataSource
 - (YLCollectionViewCell *)collectionView:(YLCollectionView *)collectionView repeatCell:(YLCollectionViewCell *)repeatCell cellForItemAtIndex:(NSInteger)index
 {
-    TitleItemData *itemData = [self.itemArray objectAtIndex:index];
     if (collectionView == self.titleview) {
         YLTitleCollectionViewCell *cell = (YLTitleCollectionViewCell *)repeatCell;
         if (!cell) {
             cell = [[YLTitleCollectionViewCell alloc] init];
+            cell.backgroundColor = self.topBarItemBgColor;
             cell.topBarItemTitleFontNormal = self.topBarItemTitleFontNormal;
             cell.topBarItemTitleFontSelected = self.topBarItemTitleFontSelected;
             cell.topBarItemTitleColorNormal = self.topBarItemTitleColorNormal;
@@ -169,22 +218,10 @@
         cell.itemData = [self.itemArray objectAtIndex:index];
         return cell;
 
-    } else {
-        YLVCCollectionViewCell *cell = (YLVCCollectionViewCell *)repeatCell;
-        NSAssert(self.delegate && [self.delegate respondsToSelector:@selector(titlesTopBarViewController:ViewController:vcForItemAtIndex:)], @"没有实现delegate 的titlesTopBarViewController:ViewController:vcForItemAtIndexPath: 方法");
-        UIViewController *vc = [self.delegate titlesTopBarViewController:self ViewController:cell.itemvc vcForItemAtIndex:index];
-        
-        if (!cell) {
-            cell = [[YLVCCollectionViewCell alloc] init];
-            cell.itemvc = vc;
-            [self addChildViewController:vc];
-        }
-        cell.itemvc.title = itemData.title;
-        
-        return cell;
-
     }
     
+    
+    return nil;
 }
 
 - (NSInteger)numberOfItemsIncollectionView:(YLCollectionView *)collectionView
@@ -196,51 +233,56 @@
 //第indexCell的距右边距
 - (CGFloat)collectionView:(YLCollectionView *)collectionView spaceForCellAtIndex:(NSInteger)index
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(titlesTopBarViewController:collectionView:spaceForCellAtIndex:)]) {
-        return  [self.delegate titlesTopBarViewController:self collectionView:collectionView spaceForCellAtIndex:index];
-    } else {
-        if (self.vcView == collectionView) {
-            return 0;
-        } else {
-            if (index == self.itemArray.count - 1) {
-                return 0;
-            }
-           return 0;
-            
-        }
     
-    }
+    if (self.delegate && [self.delegate respondsToSelector:@selector(titlesTopBarViewController:spaceForCellAtIndex:)]) {
 
+        return [self.delegate titlesTopBarViewController:self spaceForCellAtIndex:index];;
+
+    }
+    
+    return 0;
 }
 
 - (CGSize)collectionView:(YLCollectionView *)collectionView sizeForCellAtIndex:(NSInteger)index
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(titlesTopBarViewController:collectionView:sizeForTitleItemAtAtIndex:)]) {
-        return [self.delegate titlesTopBarViewController:self collectionView:collectionView sizeForTitleItemAtAtIndex:index];
-    }
-    if (collectionView == self.vcView) {
-        CGSize size = collectionView.bounds.size;
-        if (CGSizeEqualToSize(size, CGSizeZero)) {
-            size = CGSizeMake(300, 300);
+        CGSize size = [self.delegate titlesTopBarViewController:self collectionView:self.titleview sizeForTitleItemAtAtIndex:index];
+        if (!CGSizeEqualToSize(size, CGSizeZero)) {
+            return size;
         }
-        return size;
-
-    } else {
-        TitleItemData *itemData = [self.itemArray objectAtIndex:index];
-        return CGSizeMake(itemData.title.length * self.topBarItemFontSize + (30 > 2 * self.topBarItemFontSize ? 30 : 2 * self.topBarItemFontSize), self.topBarHeight - self.topBarItemTop - self.topBarItemBottm);
-
     }
+    TitleItemData *itemData = [self.itemArray objectAtIndex:index];
+    //        return CGSizeMake(itemData.title.length * self.topBarItemFontSize + (30 > 3 * self.topBarItemFontSize ? 30 : 3 * self.topBarItemFontSize), 40);
+    return CGSizeMake((itemData.title.length - 2) * self.topBarItemFontSize + (30 > 3 * self.topBarItemFontSize ? 30 : 3 * self.topBarItemFontSize), self.topBarHeight - self.topBarItemTop - self.topBarItemBottm);
 }
 
-- (void)collectionView:(YLCollectionView *)collectionView willSelectItemAtIndex:(NSInteger)index
+- (void)collectionView:(YLCollectionView *)collectionView willSelectItemAtIndex:(NSInteger)index IsReloadVC:(BOOL)reloadvc
 {
     if (self.titleview == collectionView) {
+        
         YLCollectionViewCell *cell = [collectionView cellForCollectionViewAtIndex:index];
         cell.selected = YES;
         self.selectIndex = cell.index;
-        [self.vcView selectedCellForIndex:self.selectIndex];
-        [self.vcView scrollsToIndex:self.selectIndex atScrollPosition:YLCollectionViewScrollPositionCenteredHorizontally animated:YES];
+        [UIView animateWithDuration:0.1 animations:^{
+            
+            [self.vcView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+//            [self.vcView selectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+
+        } completion:^(BOOL finished) {
+            self.vcView.currentIndex = self.selectIndex;
+            if (reloadvc) {
+                [self.vcView reloadCurrentVC];
+
+            }
+        }];
+        
+
     }
+
+}
+
+- (void)collectionView:(YLCollectionView *)collectionView didSelectItemAtIndex:(NSInteger)index
+{
 
 }
 
@@ -254,15 +296,56 @@
 
 }
 
+
+#pragma mark  UICollectionViewDataSource
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    YLVCUICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([YLVCUICollectionViewCell class]) forIndexPath:indexPath];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(titlesTopBarViewController:ViewController:vcForItemAtIndex:)]) {
+        cell.itemvc = [self.delegate titlesTopBarViewController:self ViewController:cell.itemvc vcForItemAtIndex:indexPath.row];
+    }
+    
+    cell.itemData = [self.itemArray objectAtIndex:indexPath.row];
+    return cell;
+    
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.itemArray.count;
+    
+    
+}
+
+#pragma mark  UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
+#pragma mark UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.vcView.bounds.size;
+
+}
+
+
 #pragma mark UIScrollViewDelegate  设置 vcView滑动 对 titleview的设置
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (scrollView == self.vcView) {
+        NSInteger index  = self.vcView.contentOffset.x / self.vcView.bounds.size.width;
+        if (self.vcView.currentIndex != index) {
+
+        }
+    }
     
     if (scrollView == self.vcView && self.sliderShake) {
         
         if (self.lastOffect == -1) {
             self.lastOffect = scrollView.contentOffset.x;
-        
+         
         } else {
             
             CGFloat offx = scrollView.contentOffset.x - self.lastOffect;
@@ -289,7 +372,7 @@
 
         if (!decelerate) {
             [self scrollViewDidEndDecelerating:scrollView];
-        }
+        } 
     }
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -298,8 +381,8 @@
         NSUInteger index = scrollView.contentOffset.x / scrollView.bounds.size.width;
         if (self.selectIndex != index) {
             self.selectIndex = index;
-            [self.vcView selectedCellForIndex:self.selectIndex];
-            [self.titleview selectedCellForIndex:self.selectIndex];
+            self.vcView.currentIndex = index;
+            [self.titleview selectedCellForIndex:self.selectIndex IsReloadVC:YES];
  
         } else {
             [self.titleview reloadSliderEndShake];

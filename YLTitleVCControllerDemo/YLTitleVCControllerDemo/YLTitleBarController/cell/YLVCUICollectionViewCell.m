@@ -1,14 +1,14 @@
 //
-//  YLVCCollectionViewCell.m
-//  YLTitleVCControllerDemo
+//  YLVCUICollectionViewCell.m
+//  SenyintCollegeStudent_2.0
 //
-//  Created by 任亚丽 on 17/2/27.
+//  Created by 任亚丽 on 17/4/25.
 //  Copyright © 2017年 任亚丽. All rights reserved.
 //
 
-#import "YLVCCollectionViewCell.h"
+#import "YLVCUICollectionViewCell.h"
 
-@implementation YLVCCollectionViewCell
+@implementation YLVCUICollectionViewCell
 
 - (void)setItemvc:(UIViewController *)itemvc
 {

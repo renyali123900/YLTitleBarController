@@ -8,6 +8,8 @@
 
 #import "YLCollectionView.h"
 #import "YLTitleCollectionViewCell.h"
+/**用来顶部title 继承于YLCollectionView*/
+
 @interface YLTitleCollectionView : YLCollectionView
 @property (nonatomic, assign) BOOL showSlider; //设置下边滑块
 @property (nonatomic, strong) UIImage *sliderImage; //滑块图片
@@ -15,6 +17,7 @@
 @property (nonatomic, assign) CGFloat sliderHeight; //滑块高度 确定滑块位置
 @property (nonatomic, assign) CGFloat sliderOriginY; //确定滑块位置
 @property (nonatomic, assign) BOOL shouldSliderShake; //设置滑块是否允许抖动
+@property (nonatomic, assign) CGFloat sliderWidth; //赋值表示宽度固定
 
 //更新滑块位置 实现抖动效果
 - (void)sliderShake:(CGFloat)dexx;
